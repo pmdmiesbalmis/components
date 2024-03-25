@@ -1,0 +1,32 @@
+package com.github.pmdmiesbalmis.components.validacion.validadores
+
+import com.github.pmdmiesbalmis.components.validacion.Validacion
+import com.github.pmdmiesbalmis.components.validacion.Validador
+
+/**
+ * Validador de longitud máxima de texto.
+ *
+ * @param tamañoMaximo Tamaño máximo del texto.
+ * @param error Mensaje de error que se mostrará si el texto supera el tamaño máximo.
+ * @see Validador
+ */
+class ValidadorLongitudMaximaTexto(
+    val tamañoMaximo: Int,
+    val error: String = "El texto debe ser inferior o igual a ${tamañoMaximo}"
+) : Validador<String> {
+
+    /**
+     * Valida que el texto no supere el tamaño máximo.
+     *
+     * @return Una validación con error si el texto supera el tamaño máximo, o una validación vacía si no hay errores.
+     * @sample com.github.pmdmiesbalmis.components.validacion.validadores.ValidadorLongitudMaximaTexto.valida
+     */
+    override fun valida(texto: String): Validacion {
+        return object : Validacion {
+            override val hayError: Boolean
+                get() = texto.length > tamañoMaximo
+            override val mensajeError: String
+                get() = error
+        }
+    }
+}

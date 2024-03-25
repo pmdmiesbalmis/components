@@ -21,8 +21,8 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-  implementation("com.github.pmdmiesbalmis:composables:1.0")
+  implementation("com.github.pmdmiesbalmis:utilities:1.0")
 }
 ```
 
-[![](https://jitpack.io/v/pmdmiesbalmis/composables.svg)](https://jitpack.io/#pmdmiesbalmis/composables)
+[![](https://jitpack.io/v/pmdmiesbalmis/utilities.svg)](https://jitpack.io/#pmdmiesbalmis/utilities)
