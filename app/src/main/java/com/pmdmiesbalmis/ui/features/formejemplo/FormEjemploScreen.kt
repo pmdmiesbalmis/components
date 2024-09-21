@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.pmdmiesbalmis.components.manejo_errores.InformacionEstadoUiState
-
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldEmail
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldEntero
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldPassword
@@ -26,7 +25,7 @@ import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldPhone
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldReal
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldWithErrorState
 import com.github.pmdmiesbalmis.components.ui.composables.SnackbarError
-import com.pmdmiesbalmis.ui.theme.LibreriaComponentsTheme
+import com.pmdmiesbalmis.ui.theme.LibreriaUtilidadesTheme
 
 @Composable
 fun FormEjemploScreen() {
@@ -180,7 +179,7 @@ fun FormEjemploScreen() {
 @Preview(showBackground = true)
 @Composable
 fun FormEjemploScreenPreview() {
-    LibreriaComponentsTheme {
+    LibreriaUtilidadesTheme {
         Surface {
             FormEjemploScreen()
         }

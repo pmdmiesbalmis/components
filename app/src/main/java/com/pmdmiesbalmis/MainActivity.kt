@@ -8,13 +8,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.pmdmiesbalmis.ui.features.formejemplo.FormEjemploScreen
-import com.pmdmiesbalmis.ui.theme.LibreriaComponentsTheme
+import com.pmdmiesbalmis.ui.theme.LibreriaUtilidadesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LibreriaComponentsTheme {
+            LibreriaUtilidadesTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),

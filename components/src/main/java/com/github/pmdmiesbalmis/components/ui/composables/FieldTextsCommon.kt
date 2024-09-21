@@ -3,26 +3,24 @@ package com.github.pmdmiesbalmis.components.ui.composables
 import android.telephony.PhoneNumberUtils
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import com.github.pmdmiesbalmis.components.ui.icons.Filled
 import com.github.pmdmiesbalmis.components.validacion.Validacion
 
 @Composable
@@ -46,7 +44,7 @@ fun TextFieldWithErrorState(
         trailingIcon = {
             if (validacionState.hayError) {
                 Icon(
-                    imageVector = Icons.Filled.Error,
+                    painter = Filled.getErrorIcon(),
                     contentDescription = "Error"
                 )
             }
@@ -90,7 +88,7 @@ fun OutlinedTextFieldWithErrorState(
         trailingIcon = {
             if (validacionState.hayError) {
                 Icon(
-                    imageVector = Icons.Filled.Error,
+                    painter = Filled.getErrorIcon(),
                     contentDescription = "Error"
                 )
             }
@@ -142,15 +140,16 @@ fun TextFieldPassword(
         leadingIcon = {
             IconButton(onClick = { passwordHidden = !passwordHidden }) {
                 val visibilityIcon =
-                    if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                    if (passwordHidden) Filled.getVisibilityIcon()
+                    else Filled.getVisibilityOffIcon()
                 val description = if (passwordHidden) labelShow else labelHide
-                Icon(imageVector = visibilityIcon, contentDescription = description)
+                Icon(painter = visibilityIcon, contentDescription = description)
             }
         },
         trailingIcon = {
             if (validacionState.hayError) {
                 Icon(
-                    imageVector = Icons.Filled.Error,
+                    painter = Filled.getErrorIcon(),
                     contentDescription = "Error"
                 )
             }
@@ -187,15 +186,16 @@ fun OutlinedTextFieldPassword(
         leadingIcon = {
             IconButton(onClick = { passwordHidden = !passwordHidden }) {
                 val visibilityIcon =
-                    if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                    if (passwordHidden) Filled.getVisibilityIcon()
+                    else Filled.getVisibilityOffIcon()
                 val description = if (passwordHidden) labelShow else labelHide
-                Icon(imageVector = visibilityIcon, contentDescription = description)
+                Icon(painter = visibilityIcon, contentDescription = description)
             }
         },
         trailingIcon = {
             if (validacionState.hayError) {
                 Icon(
-                    imageVector = Icons.Filled.Error,
+                    painter = Filled.getErrorIcon(),
                     contentDescription = "Error"
                 )
             }
@@ -219,7 +219,7 @@ fun TextFieldPhone(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Phone,
+                painter = Filled.getPhoneEnabledIcon(),
                 contentDescription = "Teléfono"
             )
         },
@@ -254,7 +254,7 @@ fun OutlinedTextFieldPhone(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Phone,
+                painter = Filled.getPhoneEnabledIcon(),
                 contentDescription = "Teléfono"
             )
         },
@@ -290,7 +290,7 @@ fun TextFieldEmail(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Email,
+                painter = Filled.getMailIcon(),
                 contentDescription = "Email"
             )
         },
@@ -315,7 +315,7 @@ fun OutlinedTextFieldEmail(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Email,
+                painter = Filled.getMailIcon(),
                 contentDescription = "Email"
             )
         },
@@ -340,7 +340,7 @@ fun OutlinedTextFieldName(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Person,
+                painter = Filled.getPersonIcon(),
                 contentDescription = "Nombre"
             )
         },

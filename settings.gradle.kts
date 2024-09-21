@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LibreriaComponents"
+rootProject.name = "LibreriaComponentes"
 include(":app")
 include(":components")

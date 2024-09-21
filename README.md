@@ -1,6 +1,6 @@
-# components
+# utilities
 
-## Components módulo PMDM Android + Jetpack Composes IES Balmis
+## Utilidades módulo PMDM Android + Jetpack Composes IES Balmis
 
 ### Paso 1: En el fichero **`settings.gradle.kts`** añade...
 
@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 
 ```kotlin
 dependencies {
-  implementation("com.github.pmdmiesbalmis:components:1.0")
+  implementation("com.github.pmdmiesbalmis:utilities:1.0")
 }
 ```
 
