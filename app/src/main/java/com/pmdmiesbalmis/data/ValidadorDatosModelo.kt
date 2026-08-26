@@ -1,4 +1,4 @@
-package com.pmdmiesbalmis.ui.features.formejemplo
+package com.pmdmiesbalmis.data
 
 import android.util.Range
 import com.github.pmdmiesbalmis.components.validacion.Validador
@@ -11,9 +11,11 @@ import com.github.pmdmiesbalmis.components.validacion.validadores.ValidadorNumer
 import com.github.pmdmiesbalmis.components.validacion.validadores.ValidadorPassword
 import com.github.pmdmiesbalmis.components.validacion.validadores.ValidadorTelefono
 import com.github.pmdmiesbalmis.components.validacion.validadores.ValidadorTextoNoVacio
-class ValidadorFormEjemploUiState(
+import com.pmdmiesbalmis.ui.features.formejemplo.ValidacionDatosModeloUiState
+
+class ValidadorDatosModelo(
     var mensajeErrorGlobal: String? = null
-) : Validador<FormEjemploUiState>{
+) : Validador<DatosModelo> {
 
     val validadorNombre = ValidadorCompuesto<String>()
         .add(ValidadorTextoNoVacio("El nombre no puede estar vacío"))
@@ -24,7 +26,12 @@ class ValidadorFormEjemploUiState(
         .add(ValidadorNumeroEntero(Range(1, 120), "La edad debe estar entre 1 y 120 años"))
 
     val validadorAltura = ValidadorCompuesto<String>()
-        .add(ValidadorNumeroReal(Range(1.40, 2.00), "La altura debe estar entre 1.40 y 2.00 metros"))
+        .add(
+            ValidadorNumeroReal(
+                Range(1.40, 2.00),
+                "La altura debe estar entre 1.40 y 2.00 metros"
+            )
+        )
 
     val validadorCorreo = ValidadorCompuesto<String>()
         .add(ValidadorTextoNoVacio("El correo no puede estar vacío"))
@@ -37,7 +44,7 @@ class ValidadorFormEjemploUiState(
         .add(ValidadorTelefono("El teléfono no es válido"))
 
     val validadorClave = ValidadorPassword()
-    override fun valida(datos: FormEjemploUiState): ValidacionFormEjemploUiState {
+    override fun valida(datos: DatosModelo): ValidacionDatosModeloUiState {
         val validacionNombre = validadorNombre.valida(datos.nombre)
         val validacionEdad = validadorEdad.valida(datos.edad.toString())
         val validacionAltura = validadorAltura.valida(datos.altura.toString())
@@ -45,7 +52,7 @@ class ValidadorFormEjemploUiState(
         val validacionTelefono = validadorTelefono.valida(datos.telefono)
         val validacionClave = validadorClave.valida(datos.clave)
 
-        return ValidacionFormEjemploUiState(
+        return ValidacionDatosModeloUiState(
             mensajeErrorGlobal = mensajeErrorGlobal,
             validacionNombre = validacionNombre,
             validacionEdad = validacionEdad,

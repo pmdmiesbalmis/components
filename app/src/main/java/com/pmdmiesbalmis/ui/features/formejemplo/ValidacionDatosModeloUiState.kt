@@ -3,7 +3,7 @@ package com.pmdmiesbalmis.ui.features.formejemplo
 import com.github.pmdmiesbalmis.components.validacion.Validacion
 import com.github.pmdmiesbalmis.components.validacion.ValidacionCompuesta
 
-data class ValidacionFormEjemploUiState(
+data class ValidacionDatosModeloUiState(
     val mensajeErrorGlobal: String? = null,
     val validacionNombre: Validacion = object : Validacion {},
     val validacionEdad: Validacion = object : Validacion {},

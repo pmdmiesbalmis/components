@@ -9,11 +9,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,133 +20,62 @@ import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldPhone
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldReal
 import com.github.pmdmiesbalmis.components.ui.composables.OutlinedTextFieldWithErrorState
 import com.github.pmdmiesbalmis.components.ui.composables.SnackbarError
+import com.pmdmiesbalmis.data.DatosModelo
 import com.pmdmiesbalmis.ui.theme.LibreriaUtilidadesTheme
 
 @Composable
-fun FormEjemploScreen() {
-
-    var formEjemploUiState by rememberSaveable {
-        mutableStateOf(FormEjemploUiState())
-    }
-    val validadorFormEjemploUiState = remember {
-        ValidadorFormEjemploUiState(
-            mensajeErrorGlobal = "Revisa los errores del formulario"
-        )
-    }
-    var validacionFormEjemploUiState by remember {
-        mutableStateOf(ValidacionFormEjemploUiState())
-    }
-    var informacionEstadoState: InformacionEstadoUiState by remember {
-        mutableStateOf(InformacionEstadoUiState.Oculta())
-    }
-    val onFormEjemploEvent: (FormEjemploEvent) -> Unit = { e ->
-        when (e) {
-            is FormEjemploEvent.OnChangeNombre -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionNombre = validadorFormEjemploUiState.validadorNombre.valida(e.nombre)
-                )
-                formEjemploUiState = formEjemploUiState.copy(nombre = e.nombre)
-            }
-
-            is FormEjemploEvent.OnChangeEdad -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionEdad = validadorFormEjemploUiState.validadorEdad.valida(e.edad.toString())
-                )
-                formEjemploUiState = formEjemploUiState.copy(edad = e.edad)
-            }
-
-            is FormEjemploEvent.OnChangeAltura -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionAltura = validadorFormEjemploUiState.validadorAltura.valida(e.altura.toString())
-                )
-                formEjemploUiState = formEjemploUiState.copy(altura = e.altura)
-            }
-
-            is FormEjemploEvent.OnChangeCorreo -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionCorreo = validadorFormEjemploUiState.validadorCorreo.valida(e.correo)
-                )
-                formEjemploUiState = formEjemploUiState.copy(correo = e.correo)
-            }
-
-            is FormEjemploEvent.OnChangeTelefono -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionTelefono = validadorFormEjemploUiState.validadorTelefono.valida(e.telefono)
-                )
-                formEjemploUiState = formEjemploUiState.copy(telefono = e.telefono)
-            }
-
-            is FormEjemploEvent.OnChangeClave -> {
-                validacionFormEjemploUiState = validacionFormEjemploUiState.copy(
-                    validacionClave = validadorFormEjemploUiState.validadorClave.valida(e.clave)
-                )
-                formEjemploUiState = formEjemploUiState.copy(clave = e.clave)
-            }
-
-            is FormEjemploEvent.OnDismissError -> {
-                validacionFormEjemploUiState = ValidacionFormEjemploUiState()
-            }
-
-            is FormEjemploEvent.OnAceptar -> {
-                validacionFormEjemploUiState =
-                    validadorFormEjemploUiState.valida(formEjemploUiState)
-                if (!validacionFormEjemploUiState.hayError) {
-                } else {
-                    informacionEstadoState = InformacionEstadoUiState.Error(
-                        mensaje = validacionFormEjemploUiState.mensajeError!!,
-                        onDismiss = { informacionEstadoState = InformacionEstadoUiState.Oculta() }
-                    )
-                }
-            }
-        }
-    }
-
+fun FormEjemploScreen(
+    datosModeloUiState: DatosModelo,
+    validacionDatosModeloUiState: ValidacionDatosModeloUiState,
+    informacionEstadoState: InformacionEstadoUiState,
+    onFormEjemploEvent: (FormEjemploEvent) -> Unit
+) {
     Column (modifier = Modifier.padding(16.dp)) {
 
         OutlinedTextFieldWithErrorState(
             modifier = Modifier.fillMaxWidth(),
             label = "Nombre",
-            textoState = formEjemploUiState.nombre,
-            validacionState = validacionFormEjemploUiState.validacionNombre,
+            textoState = datosModeloUiState.nombre,
+            validacionState = validacionDatosModeloUiState.validacionNombre,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeNombre(it)) }
         )
 
         OutlinedTextFieldEntero(
             modifier = Modifier.fillMaxWidth(),
             label = "Edad",
-            valorState = formEjemploUiState.edad,
-            validacionState = validacionFormEjemploUiState.validacionEdad,
+            valorState = datosModeloUiState.edad,
+            validacionState = validacionDatosModeloUiState.validacionEdad,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeEdad(it)) }
         )
 
         OutlinedTextFieldReal(
             modifier = Modifier.fillMaxWidth(),
             label = "Altura",
-            valorState = formEjemploUiState.altura,
+            valorState = datosModeloUiState.altura,
             numeroDecimales = 2,
             unidades = "m",
-            validacionState = validacionFormEjemploUiState.validacionAltura,
+            validacionState = validacionDatosModeloUiState.validacionAltura,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeAltura(it)) }
         )
 
         OutlinedTextFieldEmail(
             modifier = Modifier.fillMaxWidth(),
-            emailState = formEjemploUiState.correo,
-            validacionState = validacionFormEjemploUiState.validacionCorreo,
+            emailState = datosModeloUiState.correo,
+            validacionState = validacionDatosModeloUiState.validacionCorreo,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeCorreo(it)) }
         )
 
         OutlinedTextFieldPhone(
             modifier = Modifier.fillMaxWidth(),
-            telefonoState = formEjemploUiState.telefono,
-            validacionState = validacionFormEjemploUiState.validacionTelefono,
+            telefonoState = datosModeloUiState.telefono,
+            validacionState = validacionDatosModeloUiState.validacionTelefono,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeTelefono(it)) }
         )
 
         OutlinedTextFieldPassword(
             modifier = Modifier.fillMaxWidth(),
-            passwordState = formEjemploUiState.clave,
-            validacionState = validacionFormEjemploUiState.validacionClave,
+            passwordState = datosModeloUiState.clave,
+            validacionState = validacionDatosModeloUiState.validacionClave,
             onValueChange = { onFormEjemploEvent(FormEjemploEvent.OnChangeClave(it)) }
         )
 
@@ -181,7 +105,14 @@ fun FormEjemploScreen() {
 fun FormEjemploScreenPreview() {
     LibreriaUtilidadesTheme {
         Surface {
-            FormEjemploScreen()
+            val vm = FormEjemploViewModel()
+
+            FormEjemploScreen(
+                datosModeloUiState = vm.datosModeloUiState,
+                validacionDatosModeloUiState = vm.validacionDatosModeloUiState,
+                informacionEstadoState = vm.informacionEstadoState,
+                onFormEjemploEvent = vm.onFormEjemploEvent
+            )
         }
     }
 }

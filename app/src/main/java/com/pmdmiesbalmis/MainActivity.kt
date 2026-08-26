@@ -3,16 +3,20 @@ package com.pmdmiesbalmis
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.pmdmiesbalmis.ui.features.formejemplo.FormEjemploScreen
+import com.pmdmiesbalmis.ui.features.formejemplo.FormEjemploViewModel
 import com.pmdmiesbalmis.ui.theme.LibreriaUtilidadesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val vm by viewModels<FormEjemploViewModel>()
+
         setContent {
             LibreriaUtilidadesTheme {
                 // A surface container using the 'background' color from the theme
@@ -20,7 +24,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    FormEjemploScreen()
+                    FormEjemploScreen(
+                        datosModeloUiState = vm.datosModeloUiState,
+                        validacionDatosModeloUiState = vm.validacionDatosModeloUiState,
+                        informacionEstadoState = vm.informacionEstadoState,
+                        onFormEjemploEvent = vm.onFormEjemploEvent
+                    )
                 }
             }
         }
